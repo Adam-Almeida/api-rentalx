@@ -4,7 +4,11 @@
         "browser": true,
         "jest": true
     },
-    "extends": "standard-with-typescript",
+    "extends": [
+        "standard-with-typescript",
+        "prettier",
+        "plugin:prettier/recommended"
+    ],
     "plugin": "@typescript-eslint/recommended",
     "overrides": [],
     "parserOptions": {
@@ -12,9 +16,11 @@
         "sourceType": "module"
     },
     "plugins": [
-        "eslint-plugin-import-helpers"
+        "eslint-plugin-import-helpers",
+        "prettier"
     ],
     "rules": {
+        "prettier/prettier": "error",
         "camelcase": "off",
         "import/no-unresolved": "error",
         "@typescript-eslint/naming-convention": [
@@ -74,7 +80,7 @@
     },
     "settings": {
         "import/resolver": {
-          "typescript": {}
+            "typescript": {}
         }
-      }
+    }
 }
