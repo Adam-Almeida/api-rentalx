@@ -9,10 +9,8 @@ class CategoriesRespository implements ICategoriesRepository {
     constructor() {
         this.categories = []
     }
-    findByName(name: string): Category {
-        throw new Error("Method not implemented.");
-    }
-    categoryByName(name:string ): Category {
+
+    findByName(name:string ): Category {
         const category = this.categories.find((category) => category.name === name)
         return category
     }
@@ -32,8 +30,6 @@ class CategoriesRespository implements ICategoriesRepository {
     list(): Category[] {
         return this.categories
     }
-
-
 
 }
 

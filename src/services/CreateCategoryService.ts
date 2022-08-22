@@ -10,7 +10,7 @@ class CreateCategoryServie {
     constructor(private categoriesRespository: ICategoriesRepository) {}
 
     execute({ name, description }: IRequest) {
-        const categoryAlreadyExists = this.categoriesRespository.categoryByName(name)
+        const categoryAlreadyExists = this.categoriesRespository.findByName(name)
 
         if (categoryAlreadyExists) {
             throw new Error("Category already exists.")
