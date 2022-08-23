@@ -6,11 +6,21 @@ class CategoriesRespository implements ICategoriesRepository {
 
     private categories: Category[]
 
-    constructor() {
+    private static INSTANCE: CategoriesRespository
+
+    private constructor() {
         this.categories = []
     }
 
-    findByName(name:string ): Category {
+    public static getInstance(): CategoriesRespository {
+        if (!CategoriesRespository.INSTANCE) {
+            CategoriesRespository.INSTANCE = new CategoriesRespository()
+        }
+
+        return CategoriesRespository.INSTANCE
+    }
+
+    findByName(name: string): Category {
         const category = this.categories.find((category) => category.name === name)
         return category
     }
