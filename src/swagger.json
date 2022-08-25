@@ -15,7 +15,7 @@
                     "Category"
                 ],
                 "sumary": "Create a category",
-                "description": "create a new category",
+                "description": "Create a new category",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -43,6 +43,36 @@
                     },
                     "500": {
                         "description": "Category already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "sumary": "List all categories",
+                "description": "List all categories",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
