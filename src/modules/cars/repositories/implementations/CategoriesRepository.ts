@@ -9,20 +9,12 @@ class CategoriesRepository implements ICategoriesRepository {
     private categories: Category[]
     private static INSTANCE: CategoriesRepository
 
-    private constructor() {
+    public constructor() {
         this.repository = AppDataSource.getRepository(Category) 
     }
 
-    public static getInstance(): CategoriesRepository {
-        if (!CategoriesRepository.INSTANCE) {
-            CategoriesRepository.INSTANCE = new CategoriesRepository()
-        }
-
-        return CategoriesRepository.INSTANCE
-    }
-
-    findByName(name: string): Promise<Category >{
-        const category = this.categories.find((category) => category.name === name)
+    async findByName(name: string): Promise<Category>{
+        const category = await this.repository.findOneBy({name})
         return category
     }
 
