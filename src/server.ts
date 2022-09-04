@@ -4,7 +4,6 @@ import swaggerUi from 'swagger-ui-express'
 import swaggerFile from './swagger.json'
 
 const port = process.env.PORT || 3333
-
 const app = express()
 
 app.use(express.json())
