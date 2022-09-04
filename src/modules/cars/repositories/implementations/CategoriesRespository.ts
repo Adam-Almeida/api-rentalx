@@ -1,46 +1,45 @@
 import { Category } from "../../entities/Category"
 import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository";
+import { Repository } from "typeorm";
+import AppDataSource from "../../../../database/data-source";
 
-
-class CategoriesRespository implements ICategoriesRepository {
+class CategoriesRepository implements ICategoriesRepository {
+    private repository: Repository<Category>
 
     private categories: Category[]
-
-    private static INSTANCE: CategoriesRespository
+    private static INSTANCE: CategoriesRepository
 
     private constructor() {
-        this.categories = []
+        this.repository = AppDataSource.getRepository(Category) 
     }
 
-    public static getInstance(): CategoriesRespository {
-        if (!CategoriesRespository.INSTANCE) {
-            CategoriesRespository.INSTANCE = new CategoriesRespository()
+    public static getInstance(): CategoriesRepository {
+        if (!CategoriesRepository.INSTANCE) {
+            CategoriesRepository.INSTANCE = new CategoriesRepository()
         }
 
-        return CategoriesRespository.INSTANCE
+        return CategoriesRepository.INSTANCE
     }
 
-    findByName(name: string): Category {
+    findByName(name: string): Promise<Category >{
         const category = this.categories.find((category) => category.name === name)
         return category
     }
 
-    create({ name, description }: ICreateCategoryDTO) {
-        const category = new Category()
-
-        Object.assign(category, {
-            name,
+    async create({ name, description }: ICreateCategoryDTO): Promise<void> {
+        const category = this.repository.create({
             description,
-            created_at: new Date()
+            name
         })
 
-        this.categories.push(category)
+        await this.repository.save(category)
     }
 
-    list(): Category[] {
-        return this.categories
+    async list(): Promise<Category[]> {
+        const categories =  await this.repository.find()
+        return categories
     }
 
 }
 
-export { CategoriesRespository }
+export { CategoriesRepository }
