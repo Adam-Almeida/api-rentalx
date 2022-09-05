@@ -13,8 +13,8 @@ class CategoriesRepository implements ICategoriesRepository {
         this.repository = AppDataSource.getRepository(Category) 
     }
 
-    async findByName(name: string): Promise<Category>{
-        const category = await this.repository.findOneBy({name})
+    async findByName(name: string|null): Promise<Category>{
+        const category = await this.repository.findOne({name})
         return category
     }
 

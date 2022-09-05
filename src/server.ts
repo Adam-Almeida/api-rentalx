@@ -3,6 +3,10 @@ import { router } from "./routes"
 import swaggerUi from 'swagger-ui-express'
 import swaggerFile from './swagger.json'
 
+import { createConnection } from "./database/data-source";
+
+createConnection();
+
 const port = process.env.PORT || 3333
 const app = express()
 
